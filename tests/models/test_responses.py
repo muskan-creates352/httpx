@@ -777,6 +777,17 @@ async def test_elapsed_not_available_until_closed():
         response.elapsed  # noqa: B018
 
 
+def test_response_explicit_elapsed():
+    import datetime
+
+    response = httpx.Response(
+        200,
+        content=b"Hello, world!",
+        elapsed=datetime.timedelta(seconds=1.5),
+    )
+    assert response.elapsed == datetime.timedelta(seconds=1.5)
+
+
 def test_unknown_status_code():
     response = httpx.Response(
         600,
